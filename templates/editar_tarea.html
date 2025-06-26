@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2 class="text-center mb-4">Editar Tarea</h2>
+
+    <div class="task-box mx-auto p-4 border rounded" style="max-width: 600px;">
+        <form method="POST" action="{{ url_for('actualizar_tarea', tarea_id=tarea.id) }}">
+            <div class="mb-3">
+                <input type="text" name="contenido" class="form-control" value="{{ tarea.contenido }}" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="categoria" class="form-control" value="{{ tarea.categoria or '' }}" placeholder="Categoría (opcional)">
+            </div>
+            <div class="mb-3">
+                <input type="date" name="fecha_limite" class="form-control"
+                    value="{{ tarea.fecha_limite.strftime('%Y-%m-%d') if tarea.fecha_limite else '' }}">
+            </div>
+            <div class="form-check mb-3 text-start">
+                <input type="checkbox" name="completada" class="form-check-input" id="completada" {% if tarea.completada %}checked{% endif %}>
+                <label class="form-check-label" for="completada">Marcar como completada</label>
+            </div>
+            <button type="submit" class="btn btn-success">Actualizar</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+{% endblock %}

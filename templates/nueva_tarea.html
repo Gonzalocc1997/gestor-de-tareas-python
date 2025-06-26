@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crear Nueva Tarea</title>
+</head>
+<body>
+    <h1>Crear Nueva Tarea</h1>
+    <form action="{{ url_for('crear_tarea') }}" method="post">
+        <label for="contenido">Contenido:</label><br />
+        <input type="text" id="contenido" name="contenido" required /><br /><br />
+
+        <label for="categoria">Categoría:</label><br />
+        <input type="text" id="categoria" name="categoria" /><br /><br />
+
+        <label for="fecha_limite">Fecha límite:</label><br />
+        <input type="date" id="fecha_limite" name="fecha_limite" /><br /><br />
+
+        <button type="submit">Crear tarea</button>
+    </form>
+
+    <p><a href="{{ url_for('index') }}">Volver al listado de tareas</a></p>
+</body>
+</html>
+

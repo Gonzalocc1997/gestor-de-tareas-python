@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1 class="text-center title">App de Gestión de Tareas</h1>
+    <div class="task-box mx-auto p-4">
+        <form method="POST" action="/crear">
+            <div class="mb-3">
+                <input type="text" name="contenido" class="form-control" placeholder="Tarea" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="categoria" class="form-control" placeholder="Categoría (opcional)">
+            </div>
+            <div class="mb-3">
+                <input type="date" name="fecha_limite" class="form-control" placeholder="Fecha límite (opcional)">
+            </div>
+            <button class="btn btn-dark" type="submit">Guardar</button>
+        </form>
+
+        {% for tarea in tareas %}
+        <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded task-item {% if tarea.completada %}done{% endif %}">
+            <div>
+                <strong>{{ tarea.contenido }}</strong><br />
+                <small>
+                    {% if tarea.categoria %}
+                        Categoría: {{ tarea.categoria }} |
+                    {% endif %}
+                    {% if tarea.fecha_limite %}
+                        Fecha límite: {{ tarea.fecha_limite.strftime('%d/%m/%Y') }}
+                    {% endif %}
+                </small>
+            </div>
+            <div>
+                {% if not tarea.completada %}
+                <a href="{{ url_for('completar_tarea', tarea_id=tarea.id) }}" class="btn btn-sm btn-success me-1" title="Completar">
+                    <i class="bi bi-check2"></i>
+                </a>
+                {% endif %}
+                <a href="{{ url_for('editar_tarea', tarea_id=tarea.id) }}" class="btn btn-sm btn-primary me-1" title="Editar">
+                    <i class="bi bi-pencil"></i>
+                </a>
+                <a href="{{ url_for('eliminar_tarea', tarea_id=tarea.id) }}" class="btn btn-sm btn-danger" title="Eliminar">
+                    <i class="bi bi-trash"></i>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
